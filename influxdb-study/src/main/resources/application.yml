@@ -1,0 +1,5 @@
+influxdb:
+  url: http://192.168.60.165:8086
+  username: user
+  password: admin
+  database: testdb

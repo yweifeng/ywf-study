@@ -18,6 +18,7 @@
         <module>concurrent-study</module>
         <module>kafka-study</module>
         <module>hbase-study</module>
+        <module>influxdb-study</module>
     </modules>
 
 
