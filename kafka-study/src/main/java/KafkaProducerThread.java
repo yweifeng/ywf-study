@@ -1,3 +1,4 @@
+import com.alibaba.fastjson.JSONObject;
 import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
@@ -21,11 +22,21 @@ public class KafkaProducerThread extends Thread {
         KafkaProducer producer = createProducer();
 
         // 模拟生产数据
-        int count = 50;
-        while (count++ < 100) {
+        int count = 150;
+        String[] timeArr = new String[]{"2019-07-22 15:55:00",
+                "2019-07-23 15:55:00",
+                "2019-07-24 15:55:00"};
+        while (count++ < 200) {
             // 生产消息
-            String msg = "hello:" + count;
-            producer.send(new ProducerRecord<String, String>(topic, msg));
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("id", "movepoint_00" + count);
+            jsonObject.put("isOnline", "0");
+            jsonObject.put("type", "1");
+            jsonObject.put("lng", "118.4"+ count);
+            jsonObject.put("lat", "24.5" + count);
+            jsonObject.put("time", timeArr[count%3]);
+
+            producer.send(new ProducerRecord<String, String>(topic, jsonObject.toJSONString()));
             // 休眠1秒
             try {
                 TimeUnit.MILLISECONDS.sleep(1);
